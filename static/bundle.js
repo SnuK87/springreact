@@ -462,6 +462,10 @@
 
 	var _Stuff2 = _interopRequireDefault(_Stuff);
 
+	var _Navbar = __webpack_require__(251);
+
+	var _Navbar2 = _interopRequireDefault(_Navbar);
+
 	var _reactRouter = __webpack_require__(188);
 
 	var _bootstrap = __webpack_require__(1);
@@ -482,7 +486,12 @@
 		function App(props) {
 			_classCallCheck(this, App);
 
-			return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+			_this.state = {
+				user: 'null'
+			};
+			return _this;
 		}
 
 		_createClass(App, [{
@@ -491,68 +500,11 @@
 				return _react2.default.createElement(
 					'div',
 					null,
+					_react2.default.createElement(_Navbar2.default, { user: this.state.user }),
 					_react2.default.createElement(
-						'nav',
-						{ className: 'navbar navbar-inverse' },
-						_react2.default.createElement(
-							'div',
-							{ className: 'container-fluid' },
-							_react2.default.createElement(
-								'ul',
-								{ className: 'nav navbar-nav' },
-								_react2.default.createElement(
-									'li',
-									null,
-									_react2.default.createElement(
-										_reactRouter.IndexLink,
-										{ to: '/' },
-										'Home'
-									)
-								),
-								_react2.default.createElement(
-									'li',
-									null,
-									_react2.default.createElement(
-										_reactRouter.Link,
-										{ to: '/stuff' },
-										'Stuff'
-									)
-								),
-								_react2.default.createElement(
-									'li',
-									null,
-									_react2.default.createElement(
-										_reactRouter.Link,
-										{ to: '/contact' },
-										'Contact'
-									)
-								)
-							),
-							_react2.default.createElement(
-								'ul',
-								{ className: 'nav navbar-nav navbar-right' },
-								_react2.default.createElement(
-									'li',
-									null,
-									_react2.default.createElement(
-										_reactRouter.Link,
-										{ to: '/register' },
-										_react2.default.createElement('span', { className: 'glyphicon glyphicon-user' }),
-										' Sign Up'
-									)
-								),
-								_react2.default.createElement(
-									'li',
-									null,
-									_react2.default.createElement(
-										_reactRouter.Link,
-										{ to: '/login' },
-										_react2.default.createElement('span', { className: 'glyphicon glyphicon-log-in' }),
-										' Login'
-									)
-								)
-							)
-						)
+						'div',
+						null,
+						this.state.user
 					),
 					_react2.default.createElement(
 						'div',
@@ -16549,7 +16501,8 @@
 	  if (x === y) {
 	    // Steps 1-5, 7-10
 	    // Steps 6.b-6.e: +0 != -0
-	    return x !== 0 || 1 / x === 1 / y;
+	    // Added the nonzero y check to make Flow happy, but it is redundant
+	    return x !== 0 || y !== 0 || 1 / x === 1 / y;
 	  } else {
 	    // Step 6.a: NaN == NaN
 	    return x !== x && y !== y;
@@ -22015,7 +21968,7 @@
 /* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -22045,26 +21998,15 @@
 	  }
 
 	  _createClass(Contact, [{
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "div",
+	        'div',
 	        null,
 	        _react2.default.createElement(
-	          "h2",
+	          'h2',
 	          null,
-	          "GOT QUESTIONS?"
-	        ),
-	        _react2.default.createElement(
-	          "p",
-	          null,
-	          "The easiest thing to do is post on our ",
-	          _react2.default.createElement(
-	            "a",
-	            { href: "http://forum.kirupa.com" },
-	            "forums"
-	          ),
-	          "."
+	          'GOT QUESTIONS?'
 	        )
 	      );
 	    }
@@ -38404,6 +38346,128 @@
 
 	exports.default = (0, _createRouterHistory2.default)(_createHashHistory2.default);
 	module.exports = exports['default'];
+
+/***/ },
+/* 251 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(11);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(188);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Navbar = function (_React$Component) {
+	  _inherits(Navbar, _React$Component);
+
+	  function Navbar(props) {
+	    _classCallCheck(this, Navbar);
+
+	    return _possibleConstructorReturn(this, (Navbar.__proto__ || Object.getPrototypeOf(Navbar)).call(this, props));
+	  }
+
+	  _createClass(Navbar, [{
+	    key: 'render',
+	    value: function render() {
+	      if (this.props.user == 'null') {
+	        return _react2.default.createElement(
+	          'nav',
+	          { className: 'navbar navbar-inverse' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'container-fluid' },
+	            _react2.default.createElement(
+	              'ul',
+	              { className: 'nav navbar-nav' },
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                _react2.default.createElement(
+	                  _reactRouter.IndexLink,
+	                  { to: '/' },
+	                  'Home'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                _react2.default.createElement(
+	                  _reactRouter.Link,
+	                  { to: '/stuff' },
+	                  'Stuff'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                _react2.default.createElement(
+	                  _reactRouter.Link,
+	                  { to: '/contact' },
+	                  'Contact'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                this.props.user
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'ul',
+	              { className: 'nav navbar-nav navbar-right' },
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                _react2.default.createElement(
+	                  _reactRouter.Link,
+	                  { to: '/register' },
+	                  _react2.default.createElement('span', { className: 'glyphicon glyphicon-user' }),
+	                  ' Sign Up'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                _react2.default.createElement(
+	                  _reactRouter.Link,
+	                  { to: '/login' },
+	                  _react2.default.createElement('span', { className: 'glyphicon glyphicon-log-in' }),
+	                  ' Login'
+	                )
+	              )
+	            )
+	          )
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          'Test'
+	        );
+	      }
+	    }
+	  }]);
+
+	  return Navbar;
+	}(_react2.default.Component);
+
+	exports.default = Navbar;
 
 /***/ }
 /******/ ]);
