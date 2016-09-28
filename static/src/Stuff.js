@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery';
 
 export default class Stuff extends React.Component {
 	constructor(props){
@@ -6,7 +7,17 @@ export default class Stuff extends React.Component {
 	}
 
 	handleClick(event){
-
+		$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "http://localhost:8080/login",
+			// data: JSON.stringify("TEST"),
+			dataType: 'json',
+			success: function(result){
+							alert(result);
+							alert(result.name);
+						 }
+			});
 	}
 
 	render(){
