@@ -6,7 +6,7 @@ import Register from './Register';
 import Login from './Login';
 import Stuff from './Stuff';
 import Navbar from './Navbar';
-import {Router, Route, IndexRoute} from 'react-router';
+import {Router, Route, IndexRoute, hashHistory} from 'react-router';
 import bootstrap from '../style/bootstrap.scss';
 
 
@@ -38,7 +38,7 @@ class App extends React.Component {
 var destination = document.querySelector("#container");
 
 ReactDOM.render(
-	<Router>
+	<Router history={hashHistory}>
     	<Route path="/" component={App}>
       	<IndexRoute component={Home}/>
 			<Route path="contact" component={Contact} />

@@ -48,34 +48,41 @@ export default class Register extends React.Component {
         }
     }
 
+    handleSubmit(event){
+        event.preventDefault();
+        $.ajax({
+          type: "POST",
+          contentType: "application/json",
+          url: "http://localhost:8080/register",
+          data: JSON.stringify("TEST"),
+          dataType: 'json',
+          success: function(result){
+                  alert(result);
+                 }
+          });
+    }
 
     render() {
         return ( <
             div >
-            <
-            h2 > Sign Up < /h2> <
-            form className = "form-horizontal" >
+            <h2> Sign Up </h2>
+            <form className = "form-horizontal" onSubmit={this.handleSubmit}>
             <
             div className = "form-group" >
             <
             label className = "control-label col-sm-2"
             htmlFor = "username" > Username: < /label> <
             div className = "col-sm-10" >
-            <
-            input type = "text"
-            name = "username"
-            className = "form-control"
-            id = "username"
-            placeholder = "Enter username"
-            value = {
-                this.state.username
-            }
-            onChange = {
-                this.onInput
-            }
-            /> <
-            /div> <
-            /div> <
+            <input type = "text"
+                   name = "username"
+                   className = "form-control"
+                   id = "username"
+                   placeholder = "Enter username"
+                   value = {this.state.username}
+                   onChange = {this.onInput}
+            />
+            </div>
+            </div> <
             div className = "form-group" >
             <
             label className = "control-label col-sm-2"
