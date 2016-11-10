@@ -18,12 +18,19 @@ export default class Contact extends React.Component {
 				lists: [],
 				items: [],
 				inputListName: '',
-				selectValue: ''
+				inputVocab: '',
+				selectValue: '',
+				vocabs: []
 		};
 
 		this.onSelectChange = this.onSelectChange.bind(this)
 		this.onClickAddList = this.onClickAddList.bind(this)
+		this.onClickAddItemToList = this.onClickAddItemToList.bind(this)
+		this.onClickDeleteItem = this.onClickDeleteItem.bind(this)
+		this.onClickSaveList = this.onClickSaveList.bind(this)
 		this.onInput = this.onInput.bind(this)
+		this.onInputVocab = this.onInputVocab.bind(this)
+
 	}
 
 componentWillMount(){
@@ -34,7 +41,10 @@ componentWillMount(){
 		// data: JSON.stringify("TEST"),
 		dataType: 'json',
 		success: function(result){
-						this.setState({lists: result});
+						this.setState({
+							lists: result,
+							selectValue: result[0].name
+						});
 
 						$.ajax({
 							type: "GET",
@@ -49,6 +59,18 @@ componentWillMount(){
 
 					}.bind(this)
 		});
+
+		$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "http://localhost:8080/getVocabularies",
+			// data: JSON.stringify("TEST"),
+			dataType: 'json',
+			success: function(result){
+							this.setState({vocabs: result});
+						}.bind(this)
+			});
+
 	}
 
 	onSelectChange(event){
@@ -72,6 +94,12 @@ onInput(event){
 	});
 }
 
+onInputVocab(event){
+	this.setState({
+		inputVocab: event.target.value
+	});
+}
+
 	onClickAddList(event){
 		$.ajax({
 			type: "POST",
@@ -81,12 +109,75 @@ onInput(event){
 			data: this.state.inputListName,
 			dataType: 'json',
 			success: function(result){
-				this.setState({inputListName: ''});
+			this.setState({
+				inputListName: '',
+				lists: this.state.lists.concat(result),
+				selectValue: result.name,
+				items: []
+			});
+
 				this.setState({lists: this.state.lists.concat(result)});
 				this.setState({selectValue: result.name});
 						}.bind(this)
 			});
 	}
+
+	onClickAddItemToList(event){
+	//	alert(this.state.vocabs[0]);
+
+	var vocabs = this.state.vocabs;
+
+		for(var i = 0; i < vocabs.length; i++){
+			if(vocabs[i].english === this.state.inputVocab){
+
+				//only add when not on list
+
+				this.setState({
+					items: this.state.items.concat(vocabs[i]),
+					inputVocab: ''
+				});
+
+				break;
+			}
+			else{
+		//		alert("f");
+			}
+		}
+	}
+
+	onClickDeleteItem(event){
+		var copyItems = this.state.items;
+		copyItems.splice(event.target.id, 1);
+		this.setState({items: copyItems});
+	}
+
+onClickSaveList(event){
+
+var dataToSend = {
+	listName: this.state.selectValue,
+	vocabs: this.state.items
+};
+
+
+	console.log(this.state.items);
+	$.ajax({
+		type: "POST",
+		contentType: "application/json",
+		url: "http://localhost:8080/saveItems",
+		//data: JSON.stringify("INPUT"),
+		data: JSON.stringify(dataToSend),
+		//JSON.stringify(
+		//{
+		//	listName: this.state.selectValue,
+		//	vocabEnglish: this.state.items
+	//	}),
+		dataType: 'json',
+		success: function(result){
+			console.log(result);
+		}
+
+		});
+}
 
 	render(){
       return (
@@ -105,7 +196,7 @@ onInput(event){
     <label htmlFor="listName" style={dStyle}>Or create a new List </label>
     	<input type="text" className="form-control" id="listName" placeholder="Enter name ..." onInput={this.onInput} value = {this.state.inputListName}/>
   </div>
-  <button type="submit" className="btn btn-info" onClick={this.onClickAddList}>+</button>
+  <button type="submit" className="btn btn-primary" onClick={this.onClickAddList}>+</button>
 </form>
 
 <table className="table table-striped">
@@ -114,22 +205,31 @@ onInput(event){
 			<th>English</th>
 			<th>Korean</th>
 			<th>Pronounciation</th>
+			<th>Delete</th>
 		</tr>
 	</thead>
 	<tbody>
 		{this.state.items.map(function(item, i){
-			return <tr><td>{item.english}</td><td>{item.korean}</td><td>{item.pronounciation}</td></tr>
-		})}
+			return <tr key={item.id}>
+							<td>{item.english}</td>
+							<td>{item.korean}</td>
+							<td>{item.pronounciation}</td>
+							<td><button type="button" className="btn btn-danger" id={i} onClick={this.onClickDeleteItem}>-</button></td>
+						</tr>
+		}.bind(this))}
 	</tbody>
 </table>
 
 <form className="form-inline">
 <div className="form-group">
-	<label for="usr"></label>
-	<input type="text" className="form-control" id="usr" placeholder="add vocabulary" />
+	<label htmlFor="usr"></label>
+	<input type="text" className="form-control" id="usr" placeholder="add vocabulary" onInput={this.onInputVocab} value={this.state.inputVocab}/>
 </div>
 <div className="form-group">
-<button type="submit" className="btn btn-info">+</button>
+<button type="submit" className="btn btn-primary" onClick={this.onClickAddItemToList}>+</button>
+</div>
+<div className="form-group">
+<button type="button" className="btn btn-success" onClick={this.onClickSaveList}>Save</button>
 </div>
 </form>
         </div>
