@@ -158,19 +158,11 @@ var dataToSend = {
 	vocabs: this.state.items
 };
 
-
-	console.log(this.state.items);
 	$.ajax({
 		type: "POST",
 		contentType: "application/json",
 		url: "http://localhost:8080/saveItems",
-		//data: JSON.stringify("INPUT"),
 		data: JSON.stringify(dataToSend),
-		//JSON.stringify(
-		//{
-		//	listName: this.state.selectValue,
-		//	vocabEnglish: this.state.items
-	//	}),
 		dataType: 'json',
 		success: function(result){
 			console.log(result);
@@ -184,8 +176,8 @@ var dataToSend = {
         <div>
           <h2>Header</h2>
 				<form className="form-inline">
-				<div className="form-group" style={divStyle}>
- 				<label htmlFor="sel1" style={dStyle}>Select</label>
+				<div className="form-group">
+ 				<label htmlFor="sel1">Select:</label>
  				<select className="form-control" id="sel1" onChange={this.onSelectChange} value={this.state.selectValue}>
 					{this.state.lists.map(function(list, i){
 						return <option key={list.id}>{list.name}</option>
@@ -193,7 +185,7 @@ var dataToSend = {
  				</select>
 				</div>
   <div className="form-group">
-    <label htmlFor="listName" style={dStyle}>Or create a new List </label>
+    <label htmlFor="listName">Or create a new List:</label>
     	<input type="text" className="form-control" id="listName" placeholder="Enter name ..." onInput={this.onInput} value = {this.state.inputListName}/>
   </div>
   <button type="submit" className="btn btn-primary" onClick={this.onClickAddList}>+</button>
