@@ -36541,6 +36541,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _Test = __webpack_require__(288);
+
+	var _Test2 = _interopRequireDefault(_Test);
+
 	var _jquery = __webpack_require__(222);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
@@ -36559,23 +36563,56 @@
 		function Stuff(props) {
 			_classCallCheck(this, Stuff);
 
-			return _possibleConstructorReturn(this, (Stuff.__proto__ || Object.getPrototypeOf(Stuff)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (Stuff.__proto__ || Object.getPrototypeOf(Stuff)).call(this, props));
+
+			_this.state = {
+				lists: [],
+				selectValue: '',
+				learnMode: false
+			};
+
+			_this.onSelectChange = _this.onSelectChange.bind(_this);
+			_this.initLearn = _this.initLearn.bind(_this);
+
+			return _this;
 		}
 
 		_createClass(Stuff, [{
-			key: 'handleClick',
-			value: function handleClick(event) {
+			key: 'componentWillMount',
+			value: function componentWillMount() {
 				_jquery2.default.ajax({
 					type: "GET",
 					contentType: "application/json",
-					url: "http://localhost:8080/login",
-					// data: JSON.stringify("TEST"),
+					url: "http://localhost:8080/lists",
 					dataType: 'json',
-					success: function success(result) {
-						alert(result);
-						alert(result.name);
-					}
+					success: function (result) {
+						this.setState({
+							lists: result,
+							selectValue: result[0].name
+						});
+					}.bind(this)
 				});
+			}
+		}, {
+			key: 'initLearn',
+			value: function initLearn() {
+				_jquery2.default.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "http://localhost:8080/list?name=" + this.state.selectValue,
+					dataType: 'json',
+					success: function (result) {
+						this.setState({
+							items: result,
+							learnMode: true
+						});
+					}.bind(this)
+				});
+			}
+		}, {
+			key: 'onSelectChange',
+			value: function onSelectChange(event) {
+				this.setState({ selectValue: event.target.value });
 			}
 		}, {
 			key: 'render',
@@ -36589,44 +36626,35 @@
 						'STUFF'
 					),
 					_react2.default.createElement(
-						'p',
-						null,
-						'Mauris sem velit, vehicula eget sodales vitae, rhoncus eget sapien:'
-					),
-					_react2.default.createElement(
-						'ol',
-						null,
+						'form',
+						{ className: 'form-inline' },
 						_react2.default.createElement(
-							'li',
-							null,
-							'Nulla pulvinar diam'
+							'div',
+							{ className: 'form-group' },
+							_react2.default.createElement(
+								'label',
+								{ htmlFor: 'sel1' },
+								'Select:'
+							),
+							_react2.default.createElement(
+								'select',
+								{ className: 'form-control', id: 'sel1', onChange: this.onSelectChange, value: this.state.selectValue },
+								this.state.lists.map(function (list, i) {
+									return _react2.default.createElement(
+										'option',
+										{ key: list.id },
+										list.name
+									);
+								})
+							)
 						),
 						_react2.default.createElement(
-							'li',
-							null,
-							'Facilisis bibendum'
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'Vestibulum vulputate'
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'Eget erat'
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'Id porttitor'
+							'button',
+							{ type: 'submit', className: 'btn btn-primary', onClick: this.initLearn },
+							'Start'
 						)
 					),
-					_react2.default.createElement(
-						'div',
-						{ onClick: this.handleClick },
-						'You d this. Click to toggle.'
-					)
+					this.state.learnMode ? _react2.default.createElement(_Test2.default, null) : null
 				);
 			}
 		}]);
@@ -36698,7 +36726,7 @@
 	              _react2.default.createElement(
 	                _reactRouter.Link,
 	                { to: '/stuff' },
-	                'Stuff'
+	                'Learn'
 	              )
 	            ),
 	            _react2.default.createElement(
@@ -36707,7 +36735,7 @@
 	              _react2.default.createElement(
 	                _reactRouter.Link,
 	                { to: '/contact' },
-	                'Contact'
+	                'Lists'
 	              )
 	            )
 	          ),
@@ -42282,6 +42310,88 @@
 
 	exports.default = (0, _createRouterHistory2.default)(_createHashHistory2.default);
 	module.exports = exports['default'];
+
+/***/ },
+/* 288 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(11);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Test = function (_React$Component) {
+	  _inherits(Test, _React$Component);
+
+	  function Test(props) {
+	    _classCallCheck(this, Test);
+
+	    var _this = _possibleConstructorReturn(this, (Test.__proto__ || Object.getPrototypeOf(Test)).call(this, props));
+
+	    _this.state = {
+	      lists: [],
+	      inputVocab: ''
+	    };
+	    return _this;
+	  }
+
+	  _createClass(Test, [{
+	    key: 'onInputVocab',
+	    value: function onInputVocab(event) {
+	      this.setState({
+	        inputVocab: event.target.value
+	      });
+	    }
+	  }, {
+	    key: 'onClickNext',
+	    value: function onClickNext(event) {}
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'form',
+	          { className: 'form-inline' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'form-group' },
+	            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'usr', placeholder: 'add vocabulary', onInput: this.onInputVocab, value: this.state.inputVocab })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'form-group' },
+	            _react2.default.createElement(
+	              'button',
+	              { type: 'submit', className: 'btn btn-primary', onClick: this.onClickNext },
+	              'Next'
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Test;
+	}(_react2.default.Component);
+
+	exports.default = Test;
 
 /***/ }
 /******/ ]);

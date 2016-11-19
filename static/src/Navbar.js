@@ -13,8 +13,8 @@ export default class Navbar extends React.Component{
   				<div className="container-fluid">
             <ul className="nav navbar-nav">
               <li><IndexLink to="/">Home</IndexLink></li>
-              <li><Link to="/stuff">Stuff</Link></li>
-              <li><Link to="/contact">Contact</Link></li>
+              <li><Link to="/stuff">Learn</Link></li>
+              <li><Link to="/contact">Lists</Link></li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li><Link to="/register"><span className="glyphicon glyphicon-user"></span> Sign Up</Link></li>
