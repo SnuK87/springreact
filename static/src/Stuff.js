@@ -59,15 +59,15 @@ export default class Stuff extends React.Component {
 					<form className="form-inline">
 					<div className="form-group">
 					<label htmlFor="sel1">Select:</label>
-					<select className="form-control" id="sel1" onChange={this.onSelectChange} value={this.state.selectValue}>
+					<select className="form-control" id="sel1" onChange = {this.onSelectChange} value = {this.state.selectValue} disabled = {this.state.learnMode} >
 						{this.state.lists.map(function(list, i){
 							return <option key={list.id}>{list.name}</option>
 						})}
 					</select>
 					</div>
-		<button type="submit" className="btn btn-primary" onClick={this.initLearn}>Start</button>
+		<button type="submit" className="btn btn-primary" onClick={this.initLearn} disabled = {this.state.learnMode} >Start</button>
 	</form>
-	{this.state.learnMode ? <Test /> : null}
+	{this.state.learnMode ? <Test vocabs = {this.state.items} /> : null}
 
 
         </div>
