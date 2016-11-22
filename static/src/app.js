@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Home from './Home';
-import Contact from './Contact';
+import Lists from './Lists';
 import Register from './Register';
 import Login from './Login';
-import Stuff from './Stuff';
+import Learn from './Learn';
 import Navbar from './Navbar';
 import {Router, Route, IndexRoute, hashHistory} from 'react-router';
 import bootstrap from '../style/bootstrap.scss';
@@ -38,8 +38,8 @@ ReactDOM.render(
 	<Router history={hashHistory}>
     	<Route path="/" component={App}>
       	<IndexRoute component={Home}/>
-			<Route path="contact" component={Contact} />
-			<Route path="stuff" component={Stuff} />
+			<Route path="lists" component={Lists} />
+			<Route path="learn" component={Learn} />
 			<Route path="login" component={Login} />
 			<Route path="register" component={Register} />
   		</Route>
