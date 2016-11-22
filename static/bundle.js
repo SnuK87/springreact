@@ -42436,42 +42436,62 @@
 						'Header'
 					),
 					_react2.default.createElement(
-						'form',
-						{ className: 'form-inline' },
+						'div',
+						{ className: 'row' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'form-group' },
+							{ className: 'col-sm-4' },
 							_react2.default.createElement(
-								'label',
-								{ htmlFor: 'sel1' },
-								'Select:'
-							),
-							_react2.default.createElement(
-								'select',
-								{ className: 'form-control', id: 'sel1', onChange: this.onSelectChange, value: this.state.selectValue },
-								this.state.lists.map(function (list, i) {
-									return _react2.default.createElement(
-										'option',
-										{ key: list.id },
-										list.name
-									);
-								})
+								'div',
+								{ className: 'input-group' },
+								_react2.default.createElement(
+									'span',
+									{ className: 'input-group-addon' },
+									_react2.default.createElement(
+										'label',
+										{ htmlFor: 'sel1' },
+										'Select'
+									)
+								),
+								_react2.default.createElement(
+									'select',
+									{ className: 'form-control', id: 'sel1', onChange: this.onSelectChange, value: this.state.selectValue },
+									this.state.lists.map(function (list, i) {
+										return _react2.default.createElement(
+											'option',
+											{ key: list.id },
+											list.name
+										);
+									})
+								)
 							)
 						),
 						_react2.default.createElement(
 							'div',
-							{ className: 'form-group' },
+							{ className: 'col-sm-6' },
 							_react2.default.createElement(
-								'label',
-								{ htmlFor: 'listName' },
-								'Or create a new List:'
-							),
-							_react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'listName', placeholder: 'Enter name ...', onInput: this.onInput, value: this.state.inputListName })
-						),
-						_react2.default.createElement(
-							'button',
-							{ type: 'submit', className: 'btn btn-primary', onClick: this.onClickAddList },
-							'+'
+								'div',
+								{ className: 'input-group' },
+								_react2.default.createElement(
+									'span',
+									{ className: 'input-group-addon' },
+									_react2.default.createElement(
+										'label',
+										{ htmlFor: 'listName' },
+										'Or create a new List'
+									)
+								),
+								_react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'listName', placeholder: 'Enter name ...', onInput: this.onInput, value: this.state.inputListName }),
+								_react2.default.createElement(
+									'span',
+									{ className: 'input-group-btn' },
+									_react2.default.createElement(
+										'button',
+										{ className: 'btn btn-primary', onClick: this.onClickAddList },
+										'+'
+									)
+								)
+							)
 						)
 					),
 					_react2.default.createElement(

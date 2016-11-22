@@ -175,22 +175,33 @@ var dataToSend = {
       return (
         <div>
           <h2>Header</h2>
-			<form className="form-inline"> 
-				<div className="form-group">
- 				<label htmlFor="sel1">Select:</label>
- 				<select className="form-control" id="sel1" onChange={this.onSelectChange} value={this.state.selectValue}>
-					{this.state.lists.map(function(list, i){
-						return <option key={list.id}>{list.name}</option>
-					})}
- 				</select>
-				</div>
-  			<div className="form-group">
-    			<label htmlFor="listName">Or create a new List:</label>
-    			<input type="text" className="form-control" id="listName" placeholder="Enter name ..." onInput={this.onInput} value = {this.state.inputListName}/>
-  			</div>
-  			<button type="submit" className="btn btn-primary" onClick={this.onClickAddList}>+</button>
-				</form>
+				<div className="row">
+ 				<div className="col-sm-4">
+				<div className="input-group">
 
+				<span className="input-group-addon">
+					<label htmlFor="sel1">Select</label>
+				</span>
+ 					<select className="form-control" id="sel1" onChange={this.onSelectChange} value={this.state.selectValue}>
+						{this.state.lists.map(function(list, i){
+							return <option key={list.id}>{list.name}</option>
+						})}
+ 					</select>
+				</div>
+				</div>
+
+					<div className="col-sm-6">
+						<div className="input-group">
+						<span className="input-group-addon">
+							<label htmlFor="listName">Or create a new List</label>
+						</span>
+		    			<input type="text" className="form-control" id="listName" placeholder="Enter name ..." onInput={this.onInput} value = {this.state.inputListName}/>
+							<span className="input-group-btn">
+		  					<button className="btn btn-primary" onClick={this.onClickAddList}>+</button>
+							</span>
+						</div>
+					</div>
+				</div>
 <table className="table table-striped">
 	<thead>
 		<tr>
