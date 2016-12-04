@@ -21,7 +21,7 @@ export default class Stuff extends React.Component {
 		$.ajax({
 			type: "GET",
 			contentType: "application/json",
-			url: "http://localhost:8080/lists",
+			url: "http://192.168.1.24:8080/lists",
 			dataType: 'json',
 			success: function(result){
 							this.setState({
@@ -37,7 +37,7 @@ export default class Stuff extends React.Component {
 			$.ajax({
 				type: "GET",
 				contentType: "application/json",
-				url: "http://localhost:8080/list?name=" + this.state.selectValue,
+				url: "http://192.168.1.24:8080/list?name=" + this.state.selectValue,
 				dataType: 'json',
 				success: function(result){
 								this.setState({
@@ -56,18 +56,25 @@ export default class Stuff extends React.Component {
       return (
         <div>
           <h2>Learn</h2>
-					<form className="form-inline">
-					<div className="form-group">
-					<label htmlFor="sel1">Select:</label>
+					<div className="row">
+					<div className="col-sm-12">
+					<div className="input-group">
+					<span className="input-group-addon">
+						<label htmlFor="sel1">Select:</label>
+					</span>
 					<select className="form-control" id="sel1" onChange = {this.onSelectChange} value = {this.state.selectValue} disabled = {this.state.learnMode} >
 						{this.state.lists.map(function(list, i){
 							return <option key={list.id}>{list.name}</option>
 						})}
 					</select>
-					</div>
+					<span className="input-group-btn">
 		<button type="submit" className="btn btn-primary" onClick={this.initLearn} disabled = {this.state.learnMode} >Start</button>
-	</form>
+		</span>
+	</div>
+	</div>
+	</div>
 	{this.state.learnMode ? <Test vocabs = {this.state.items} /> : null}
+
         </div>
       );
 	}

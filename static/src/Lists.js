@@ -1,9 +1,9 @@
 import React from 'react';
-import Autosuggest from 'react-autosuggest';
+// import Autosuggest from 'react-autosuggest';
 import $ from 'jquery';
 
 const divStyle = {
-	margin: '0px 50px 0px 0px',
+	margin: '50px 0px 50px 0px',
 };
 
 const dStyle = {
@@ -37,7 +37,8 @@ componentWillMount(){
 	$.ajax({
 		type: "GET",
 		contentType: "application/json",
-		url: "http://localhost:8080/lists",
+		//
+		url: "http://192.168.1.24:8080/lists",
 		// data: JSON.stringify("TEST"),
 		dataType: 'json',
 		success: function(result){
@@ -49,7 +50,7 @@ componentWillMount(){
 						$.ajax({
 							type: "GET",
 							contentType: "application/json",
-							url: "http://localhost:8080/list?name=" + this.state.lists[0].name,
+							url: "http://192.168.1.24:8080/list?name=" + this.state.lists[0].name,
 							// data: JSON.stringify("TEST"),
 							dataType: 'json',
 							success: function(result){
@@ -63,7 +64,7 @@ componentWillMount(){
 		$.ajax({
 			type: "GET",
 			contentType: "application/json",
-			url: "http://localhost:8080/getVocabularies",
+			url: "http://192.168.1.24:8080/getVocabularies",
 			// data: JSON.stringify("TEST"),
 			dataType: 'json',
 			success: function(result){
@@ -77,7 +78,7 @@ componentWillMount(){
 		$.ajax({
 			type: "GET",
 			contentType: "application/json",
-			url: "http://localhost:8080/list?name=" + event.target.value,
+			url: "http://192.168.1.24:8080/list?name=" + event.target.value,
 			// data: JSON.stringify("TEST"),
 			dataType: 'json',
 			success: function(result){
@@ -104,7 +105,7 @@ onInputVocab(event){
 		$.ajax({
 			type: "POST",
 			contentType: "application/json",
-			url: "http://localhost:8080/saveList",
+			url: "http://192.168.1.24:8080/saveList",
 			//data: JSON.stringify("INPUT"),
 			data: this.state.inputListName,
 			dataType: 'json',
@@ -161,7 +162,7 @@ var dataToSend = {
 	$.ajax({
 		type: "POST",
 		contentType: "application/json",
-		url: "http://localhost:8080/saveItems",
+		url: "http://192.168.1.24:8080/saveItems",
 		data: JSON.stringify(dataToSend),
 		dataType: 'json',
 		success: function(result){
@@ -171,16 +172,18 @@ var dataToSend = {
 		});
 }
 
+
+
 	render(){
       return (
         <div>
           <h2>Header</h2>
 				<div className="row">
- 				<div className="col-sm-4">
+ 				<div className="col-sm-6">
 				<div className="input-group">
 
 				<span className="input-group-addon">
-					<label htmlFor="sel1">Select</label>
+					<label htmlFor="sel1">Select List</label>
 				</span>
  					<select className="form-control" id="sel1" onChange={this.onSelectChange} value={this.state.selectValue}>
 						{this.state.lists.map(function(list, i){
@@ -190,10 +193,13 @@ var dataToSend = {
 				</div>
 				</div>
 
-					<div className="col-sm-6">
+				<div className="col-sm-2">
+				</div>
+
+					<div className="col-sm-4">
 						<div className="input-group">
 						<span className="input-group-addon">
-							<label htmlFor="listName">Or create a new List</label>
+							<label htmlFor="listName">Create a new List</label>
 						</span>
 		    			<input type="text" className="form-control" id="listName" placeholder="Enter name ..." onInput={this.onInput} value = {this.state.inputListName}/>
 							<span className="input-group-btn">
@@ -202,7 +208,7 @@ var dataToSend = {
 						</div>
 					</div>
 				</div>
-<table className="table table-striped">
+<table className="table table-striped" style={divStyle}>
 	<thead>
 		<tr>
 			<th>English</th>
@@ -223,18 +229,24 @@ var dataToSend = {
 	</tbody>
 </table>
 
-<form className="form-inline">
-<div className="form-group">
-	<label htmlFor="usr"></label>
-	<input type="text" className="form-control" id="usr" placeholder="add vocabulary" onInput={this.onInputVocab} value={this.state.inputVocab}/>
+<div className="row">
+	<div className="col-sm-6">
+		<div className="input-group">
+			<span className="input-group-addon">
+				<label htmlFor="usr">Add Vocabulary</label>
+			</span>
+				<input type="text" className="form-control" id="usr" placeholder="Vocabulary" onInput={this.onInputVocab} value={this.state.inputVocab}/>
+			<span className="input-group-btn">
+			<button type="submit" className="btn btn-primary" onClick={this.onClickAddItemToList}>+</button>
+			</span>
+		</div>
+		</div>
+		<div className="col-sm-2"></div>
+		<div className="col-sm-4">
+		<button type="button" className="btn btn-success pull-right" onClick={this.onClickSaveList}>Save</button>
+	</div>
 </div>
-<div className="form-group">
-<button type="submit" className="btn btn-primary" onClick={this.onClickAddItemToList}>+</button>
-</div>
-<div className="form-group">
-<button type="button" className="btn btn-success" onClick={this.onClickSaveList}>Save</button>
-</div>
-</form>
+
         </div>
       );
 	}
