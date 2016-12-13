@@ -12,9 +12,9 @@ export default class Table extends React.Component {
     }
 
     onClickDeleteItem(event) {
-        var copyItems = this.props.items;
-        copyItems.splice(event.target.id, 1);
-        this.props.handleDelete(copyItems);
+        //var copyItems = this.props.items;
+        //copyItems.splice(event.target.id, 1);
+        this.props.handleDelete(event.target.id);
     }
 
 
@@ -32,9 +32,9 @@ export default class Table extends React.Component {
             <tbody>
                 {this.props.items.map(function(item, i) {
                     return <tr key={item.id}>
-                        <td>{item.english}</td>
-                        <td>{item.korean}</td>
-                        <td>{item.pronounciation}</td>
+                        <td>{item.vocabulary.english}</td>
+                        <td>{item.vocabulary.korean}</td>
+                        <td>{item.vocabulary.pronounciation}</td>
                         <td>
                             <button type="button" className="btn btn-danger" id={i} onClick={this.onClickDeleteItem}>-</button>
                         </td>

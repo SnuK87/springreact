@@ -20,33 +20,27 @@ export default class Header extends React.Component {
     }
 
     onClickAddList(event) {
+
+      this.props.onAddList(result.id, result);
+
         $.ajax({
             type: "POST", contentType: "application/json", url: "http://192.168.1.24:8080/saveList",
             //data: JSON.stringify("INPUT"),
             data: this.state.inputListName,
             dataType: 'json',
             success: function(result) {
-                this.props.onAddList(result.id, result);
-
-                this.setState({inputListName: '', selectValue: result.id});
+                this.setState({
+                  inputListName: '',
+                  selectValue: this.props.lists[this.props.lists.length - 1]
+                });
             }.bind(this)
         });
     }
 
     onSelectChange(event) {
-
-        var listId = event.target.value;
-
-        $.ajax({
-            type: "GET",
-            contentType: "application/json",
-            url: "http://192.168.1.24:8080/list?id=" + listId,
-            dataType: 'json',
-            success: function(result) {
-                this.props.onListChange(listId, result);
-                this.setState({selectValue: listId});
-            }.bind(this)
-        });
+        var listIndex = event.target.value;
+        this.props.onListChange(listIndex);
+        this.setState({selectValue: listIndex});
     }
 
     render() {
@@ -59,7 +53,7 @@ export default class Header extends React.Component {
                         </span>
                         <select className="form-control" id="sel1" onChange={this.onSelectChange} value={this.state.selectValue}>
                             {this.props.lists.map(function(list, i) {
-                                return <option key={list.id} value={list.id}>{list.name}</option>
+                                return <option key={i} value={i}>{list.name}</option>
                             })}
                         </select>
                     </div>

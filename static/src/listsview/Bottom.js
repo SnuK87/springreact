@@ -13,7 +13,6 @@ export default class Bottom extends React.Component {
         this.onClickAddItemToList = this.onClickAddItemToList.bind(this)
         this.onInputVocab = this.onInputVocab.bind(this)
         this.onKeyPressVocab = this.onKeyPressVocab.bind(this)
-
     }
 
     onInputVocab(event) {
@@ -27,35 +26,15 @@ export default class Bottom extends React.Component {
     }
 
     onClickAddItemToList(event) {
-        //TODO NUR SPEICHERN WENN NICHT IN LISTE
         var vocabs = this.props.vocabs;
 
         for (var i = 0; i < vocabs.length; i++) {
             if (vocabs[i].english === this.state.inputVocab) {
                 this.setState({inputVocab: ''});
-
                 this.props.onAddItem(vocabs[i]);
-
-                //persist
-                var dataToSend = {
-                    listId: this.props.listId,
-                    vocab: vocabs[i]
-                };
-
-                $.ajax({
-                    type: "POST",
-                    contentType: "application/json",
-                    url: "http://192.168.1.24:8080/saveItem",
-                    data: JSON.stringify(dataToSend),
-                    dataType: 'json',
-                    success: function(result) {
-                        console.log(result);
-                    }
-                });
-
                 break;
             } else {
-                //Vokabel nicht gefunden
+                //TODO Vokabel nicht gefunden
             }
         }
     }
