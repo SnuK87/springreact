@@ -14,8 +14,7 @@ export default class Contact extends React.Component {
             items: [],
             inputListName: '',
             inputVocab: '',
-            //TODO noch wird id gespeichert, es soll aber das ganze list object gespeichert werden
-            selectedList: '',
+            selectedOption: 0,
             vocabs: [],
         };
 
@@ -35,7 +34,6 @@ export default class Contact extends React.Component {
 
                 this.setState({
                   lists: result,
-                  selectedList: result[0]
                 });
 
                 $.ajax({
@@ -75,7 +73,7 @@ export default class Contact extends React.Component {
         //persist
         var dataToSend = {
             id: null,
-            list: this.state.selectedList,
+            list: this.state.lists[this.state.selectedOption],
             vocabulary: vocab,
         };
 
@@ -93,16 +91,14 @@ export default class Contact extends React.Component {
         });
     }
 
-    handleListChange(listIndex) {
-      this.setState({selectedList: this.state.lists[listIndex]}, function(){
+    handleListChange(selectedIndex) {
+      this.setState({selectedOption: selectedIndex}, function(){
         $.ajax({
             type: "GET",
             contentType: "application/json",
-            url: "http://192.168.1.24:8080/list?id=" + this.state.selectedList.id,
+            url: "http://192.168.1.24:8080/list?id=" + this.state.lists[selectedIndex].id,
             dataType: 'json',
             success: function(result) {
-              console.log("Result: ");
-              console.log(result);
               this.setState({
                 items: result
               })
@@ -111,11 +107,18 @@ export default class Contact extends React.Component {
       });
     }
 
-    handleAddList(selectedId, list) {
-        this.setState({
-          items: [],
-          lists: this.state.lists.concat(list),
-          selectedList: this.state.lists[this.state.lists.length - 1]
+    handleAddList(listName) {
+      $.ajax({
+            type: "POST", contentType: "application/json", url: "http://192.168.1.24:8080/saveList",
+            data: listName,
+            dataType: 'json',
+            success: function(result) {
+              this.setState({
+                items: [],
+                lists: this.state.lists.concat(result),
+                selectedOption: this.state.lists.length
+              });
+            }.bind(this)
         });
     }
 
@@ -140,7 +143,7 @@ export default class Contact extends React.Component {
         return (
             <div>
                 <h2>Lists</h2>
-                <Header onListChange={this.handleListChange} lists={this.state.lists} onAddList={this.handleAddList}/>
+                <Header onListChange={this.handleListChange} lists={this.state.lists} onAddList={this.handleAddList} selectedValue={this.state.selectedOption}/>
                 <hr/>
                 <Table items={this.state.items} handleDelete={this.handleDelete}/>
                 <hr/>

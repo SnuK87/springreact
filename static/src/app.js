@@ -4,7 +4,7 @@ import Home from './Home';
 import Lists from './listsview/Lists';
 import Register from './Register';
 import Login from './Login';
-import Learn from './Learn';
+import Learn from './learnview/Learn';
 import Navbar from './Navbar';
 import {Router, Route, IndexRoute, hashHistory} from 'react-router';
 import bootstrap from '../style/bootstrap.scss';

@@ -7,12 +7,12 @@ export default class Header extends React.Component {
 
         this.state = {
             inputListName: '',
-            selectValue: ''
         };
 
         this.onSelectChange = this.onSelectChange.bind(this)
         this.onClickAddList = this.onClickAddList.bind(this)
         this.onInput = this.onInput.bind(this)
+        this.onKeyPressAddList = this.onKeyPressAddList.bind(this)
     }
 
     onInput(event) {
@@ -21,30 +21,29 @@ export default class Header extends React.Component {
 
     onClickAddList(event) {
 
+      var listName = this.state.inputListName;
+      var lists = this.props.lists;
+      for (var i = 0; i < lists.length; i++) {
+        if(lists[i].name === listName){
+          console.log("listname schon vergeben");
+          //TODO Listname schon vorhanden
+          return;
+        }
+      }
 
-      // this.setState({
-      //   inputListName: '',
-      //   selectValue: this.props.lists[this.props.lists.length - 1]
-      // });
+      this.props.onAddList(listName);
+      this.setState({inputListName: ''});
+    }
 
-
-      $.ajax({
-            type: "POST", contentType: "application/json", url: "http://192.168.1.24:8080/saveList",
-            //data: JSON.stringify("INPUT"),
-            data: this.state.inputListName,
-            dataType: 'json',
-            success: function(result) {
-              this.props.onAddList(result.id, result);
-              console.log(result);
-
-            }.bind(this)
-        });
+    onKeyPressAddList(event) {
+        if (event.key === 'Enter') {
+            this.onClickAddList();
+        }
     }
 
     onSelectChange(event) {
-        var listIndex = event.target.value;
-        this.props.onListChange(listIndex);
-        this.setState({selectValue: listIndex});
+        var selectedIndex = event.target.value;
+        this.props.onListChange(selectedIndex);
     }
 
     render() {
@@ -55,7 +54,7 @@ export default class Header extends React.Component {
                         <span className="input-group-addon">
                             <label htmlFor="sel1">Select List</label>
                         </span>
-                        <select className="form-control" id="sel1" onChange={this.onSelectChange} value={this.state.selectValue}>
+                        <select className="form-control" id="sel" onChange={this.onSelectChange} value={this.props.selectedValue}>
                             {this.props.lists.map(function(list, i) {
                                 return <option key={i} value={i}>{list.name}</option>
                             })}
@@ -68,7 +67,7 @@ export default class Header extends React.Component {
                         <span className="input-group-addon">
                             <label htmlFor="listName">Create a new List</label>
                         </span>
-                        <input type="text" className="form-control" id="listName" placeholder="Enter name ..." onInput={this.onInput} value={this.state.inputListName}/>
+                        <input type="text" className="form-control" id="listName" placeholder="Enter name ..." onInput={this.onInput} value={this.state.inputListName} onKeyPress={this.onKeyPressAddList}/>
                         <span className="input-group-btn">
                             <button className="btn btn-primary" onClick={this.onClickAddList}>+</button>
                         </span>
