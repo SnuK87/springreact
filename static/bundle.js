@@ -32562,7 +32562,11 @@
 	        key: 'onClickAddList',
 	        value: function onClickAddList(event) {
 
-	            this.props.onAddList(result.id, result);
+	            // this.setState({
+	            //   inputListName: '',
+	            //   selectValue: this.props.lists[this.props.lists.length - 1]
+	            // });
+
 
 	            _jquery2.default.ajax({
 	                type: "POST", contentType: "application/json", url: "http://192.168.1.24:8080/saveList",
@@ -32570,10 +32574,8 @@
 	                data: this.state.inputListName,
 	                dataType: 'json',
 	                success: function (result) {
-	                    this.setState({
-	                        inputListName: '',
-	                        selectValue: this.props.lists[this.props.lists.length - 1]
-	                    });
+	                    this.props.onAddList(result.id, result);
+	                    console.log(result);
 	                }.bind(this)
 	            });
 	        }

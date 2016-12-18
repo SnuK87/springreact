@@ -21,18 +21,22 @@ export default class Header extends React.Component {
 
     onClickAddList(event) {
 
-      this.props.onAddList(result.id, result);
 
-        $.ajax({
+      // this.setState({
+      //   inputListName: '',
+      //   selectValue: this.props.lists[this.props.lists.length - 1]
+      // });
+
+
+      $.ajax({
             type: "POST", contentType: "application/json", url: "http://192.168.1.24:8080/saveList",
             //data: JSON.stringify("INPUT"),
             data: this.state.inputListName,
             dataType: 'json',
             success: function(result) {
-                this.setState({
-                  inputListName: '',
-                  selectValue: this.props.lists[this.props.lists.length - 1]
-                });
+              this.props.onAddList(result.id, result);
+              console.log(result);
+
             }.bind(this)
         });
     }
