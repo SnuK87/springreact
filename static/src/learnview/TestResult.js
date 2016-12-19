@@ -17,7 +17,7 @@ export default class TestResult extends React.Component {
                     <td>{this.props.vocabs[i].vocabulary.korean}</td>
                     <td>{this.props.vocabs[i].vocabulary.english}</td>
                     <td>{this.props.inputs[i]}</td>
-                    <td>{this.props.vocabs[i].vocabulary.english === this.props.inputs[i] ? 'OK' : 'NOK'}</td>
+                    <td>{this.props.vocabs[i].vocabulary.english === this.props.inputs[i] ? <span style={{color: 'green'}} className="glyphicon glyphicon-ok"></span> : <span style={{color: 'red'}} className="glyphicon glyphicon-remove"></span>}</td>
                 </tr>
             );
 
@@ -31,7 +31,14 @@ export default class TestResult extends React.Component {
 
         return (
             <div>
-                <h1>{x}</h1>
+                <h1>{x} % correct</h1>
+                  <div className="progress">
+                      <div className="progress-bar progress-bar-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style={{
+                          width: x + '%'
+                      }}>
+                          {x}%
+                      </div>
+                  </div>
                 <table className="table table-striped">
                     <thead>
                         <tr>
@@ -45,13 +52,7 @@ export default class TestResult extends React.Component {
                         {rows}
                     </tbody>
                 </table>
-                <div className="progress">
-                    <div className="progress-bar progress-bar-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style={{
-                        width: x + '%'
-                    }}>
-                        {x}%
-                    </div>
-                </div>
+                <button className="btn btn-primary">Continue</button>
             </div>
         );
     }

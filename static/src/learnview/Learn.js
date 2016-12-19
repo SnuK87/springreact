@@ -73,6 +73,7 @@ export default class Stuff extends React.Component {
                         </div>
                     </div>
                 </div>
+                <hr/>
                 {this.state.learnMode ? <Test vocabs={this.state.items}/> : null}
 
             </div>

@@ -33285,6 +33285,7 @@
 	                        )
 	                    )
 	                ),
+	                _react2.default.createElement('hr', null),
 	                this.state.learnMode ? _react2.default.createElement(_Test2.default, { vocabs: this.state.items }) : null
 	            );
 	        }
@@ -33302,7 +33303,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -33324,86 +33325,98 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var Test = function (_React$Component) {
-	  _inherits(Test, _React$Component);
+	    _inherits(Test, _React$Component);
 
-	  function Test(props) {
-	    _classCallCheck(this, Test);
+	    function Test(props) {
+	        _classCallCheck(this, Test);
 
-	    var _this = _possibleConstructorReturn(this, (Test.__proto__ || Object.getPrototypeOf(Test)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (Test.__proto__ || Object.getPrototypeOf(Test)).call(this, props));
 
-	    _this.state = {
-	      index: 0,
-	      inputVocab: '',
-	      inputs: [],
-	      done: false
-	    };
+	        _this.state = {
+	            index: 0,
+	            inputVocab: '',
+	            inputs: [],
+	            done: false
+	        };
 
-	    _this.onInputVocab = _this.onInputVocab.bind(_this);
-	    _this.onClickNext = _this.onClickNext.bind(_this);
+	        _this.onInputVocab = _this.onInputVocab.bind(_this);
+	        _this.onClickNext = _this.onClickNext.bind(_this);
 
-	    return _this;
-	  }
-
-	  _createClass(Test, [{
-	    key: 'onInputVocab',
-	    value: function onInputVocab(event) {
-	      this.setState({
-	        inputVocab: event.target.value
-	      });
+	        return _this;
 	    }
-	  }, {
-	    key: 'onClickNext',
-	    value: function onClickNext(event) {
 
-	      var i = this.state.index;
-	      var n = this.props.vocabs.length;
+	    _createClass(Test, [{
+	        key: 'onInputVocab',
+	        value: function onInputVocab(event) {
+	            this.setState({ inputVocab: event.target.value });
+	        }
+	    }, {
+	        key: 'onClickNext',
+	        value: function onClickNext(event) {
 
-	      if (i === n - 1) {
-	        this.setState({
-	          done: true
-	        });
-	      }
+	            var i = this.state.index;
+	            var n = this.props.vocabs.length;
 
-	      this.setState({
-	        index: this.state.index + 1,
-	        inputs: this.state.inputs.concat(this.state.inputVocab),
-	        inputVocab: ''
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        this.state.done ? _react2.default.createElement(_TestResult2.default, { inputs: this.state.inputs, vocabs: this.props.vocabs }) : _react2.default.createElement(
-	          'form',
-	          { className: 'form-inline' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'form-group' },
-	            _react2.default.createElement(
-	              'label',
-	              null,
-	              this.props.vocabs[this.state.index].vocabulary.korean
-	            ),
-	            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'usr', placeholder: 'english', onInput: this.onInputVocab, value: this.state.inputVocab })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'form-group' },
-	            _react2.default.createElement(
-	              'button',
-	              { type: 'submit', className: 'btn btn-primary', onClick: this.onClickNext },
-	              'Next'
-	            )
-	          )
-	        )
-	      );
-	    }
-	  }]);
+	            if (i === n - 1) {
+	                this.setState({ done: true });
+	            }
 
-	  return Test;
+	            this.setState({
+	                index: this.state.index + 1,
+	                inputs: this.state.inputs.concat(this.state.inputVocab),
+	                inputVocab: ''
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                this.state.done ? _react2.default.createElement(_TestResult2.default, { inputs: this.state.inputs, vocabs: this.props.vocabs }) : _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'row' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'col-sm-12' },
+	                            _react2.default.createElement(
+	                                'label',
+	                                null,
+	                                this.props.vocabs[this.state.index].vocabulary.korean
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'row' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'col-sm-12' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'input-group' },
+	                                _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'usr', placeholder: 'english', onInput: this.onInputVocab, value: this.state.inputVocab }),
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    { className: 'input-group-btn' },
+	                                    _react2.default.createElement(
+	                                        'button',
+	                                        { className: 'btn btn-primary', onClick: this.onClickNext },
+	                                        'Next'
+	                                    )
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Test;
 	}(_react2.default.Component);
 
 	exports.default = Test;
@@ -33470,7 +33483,7 @@
 	                    _react2.default.createElement(
 	                        'td',
 	                        null,
-	                        this.props.vocabs[i].vocabulary.english === this.props.inputs[i] ? 'OK' : 'NOK'
+	                        this.props.vocabs[i].vocabulary.english === this.props.inputs[i] ? _react2.default.createElement('span', { style: { color: 'green' }, className: 'glyphicon glyphicon-ok' }) : _react2.default.createElement('span', { style: { color: 'red' }, className: 'glyphicon glyphicon-remove' })
 	                    )
 	                ));
 
@@ -33488,7 +33501,20 @@
 	                _react2.default.createElement(
 	                    'h1',
 	                    null,
-	                    x
+	                    x,
+	                    ' % correct'
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'progress' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'progress-bar progress-bar-success', role: 'progressbar', 'aria-valuenow': '70', 'aria-valuemin': '0', 'aria-valuemax': '100', style: {
+	                                width: x + '%'
+	                            } },
+	                        x,
+	                        '%'
+	                    )
 	                ),
 	                _react2.default.createElement(
 	                    'table',
@@ -33528,16 +33554,9 @@
 	                    )
 	                ),
 	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'progress' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'progress-bar progress-bar-success', role: 'progressbar', 'aria-valuenow': '70', 'aria-valuemin': '0', 'aria-valuemax': '100', style: {
-	                                width: x + '%'
-	                            } },
-	                        x,
-	                        '%'
-	                    )
+	                    'button',
+	                    { className: 'btn btn-primary' },
+	                    'Continue'
 	                )
 	            );
 	        }
