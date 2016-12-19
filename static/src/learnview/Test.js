@@ -47,12 +47,9 @@ export default class Test extends React.Component {
     return (
       <div>
       {this.state.done ? <TestResult inputs = {this.state.inputs} vocabs = {this.props.vocabs}/> :
-    //  {this.state.index}
-    //  /
-    //  {this.props.vocabs.length}
       <form className="form-inline">
       <div className="form-group">
-      <label>{this.props.vocabs[this.state.index].korean}</label>
+      <label>{this.props.vocabs[this.state.index].vocabulary.korean}</label>
         <input type="text" className="form-control" id="usr" placeholder = "english" onInput={this.onInputVocab} value={this.state.inputVocab}/>
       </div>
       <div className="form-group">

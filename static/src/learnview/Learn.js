@@ -9,7 +9,8 @@ export default class Stuff extends React.Component {
         this.state = {
             lists: [],
             selectValue: '',
-            learnMode: false
+            learnMode: false,
+            items: []
         };
 
         this.onSelectChange = this.onSelectChange.bind(this)
@@ -24,8 +25,11 @@ export default class Stuff extends React.Component {
             url: "http://192.168.1.24:8080/lists",
             dataType: 'json',
             success: function(result) {
-                this.setState({lists: result, selectValue: result[0].name});
-            }.bind(this)
+                this.setState({
+                  lists: result,
+                  selectValue: result[0].id
+                });
+            }.bind(this),
         });
     }
 
@@ -33,11 +37,14 @@ export default class Stuff extends React.Component {
         $.ajax({
             type: "GET",
             contentType: "application/json",
-            url: "http://192.168.1.24:8080/list?name=" + this.state.selectValue,
+            url: "http://192.168.1.24:8080/list?id=" + this.state.selectValue,
             dataType: 'json',
             success: function(result) {
-                this.setState({items: result, learnMode: true});
-            }.bind(this)
+                this.setState({
+                  items: result,
+                  learnMode: true
+                });
+            }.bind(this),
         });
     }
 
@@ -57,7 +64,7 @@ export default class Stuff extends React.Component {
                             </span>
                             <select className="form-control" id="sel1" onChange={this.onSelectChange} value={this.state.selectValue} disabled={this.state.learnMode}>
                                 {this.state.lists.map(function(list, i) {
-                                    return <option key={list.id}>{list.name}</option>
+                                    return <option key={i} value={list.id}>{list.name}</option>
                                 })}
                             </select>
                             <span className="input-group-btn">
@@ -66,9 +73,7 @@ export default class Stuff extends React.Component {
                         </div>
                     </div>
                 </div>
-                {this.state.learnMode
-                    ? <Test vocabs={this.state.items}/>
-                    : null}
+                {this.state.learnMode ? <Test vocabs={this.state.items}/> : null}
 
             </div>
         );
